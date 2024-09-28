@@ -1,14 +1,125 @@
-This is the homepage
 <h1>Enter Your Name</h1>
 <form action="/user/name/" method="POST">
-  <input type="text" name="name" placeholder="Enter your name" required>
-  <button type="submit">Submit</button>
+    <input type="text" name="name" placeholder="Enter your name" required>
+    <button type="submit">Submit</button>
 </form>
 
-<form action="/user/<id>/sendchat" method="POST">
-  <input type="text" name="name" placeholder="Enter Id:" required>
-  <input type="text" name="message" placeholder="Enter Message" required>
-  <button type="submit">Submit</button>
+<form id="chatForm">
+    <input type="text" id="id" placeholder="Enter Receiving ID:" required>
+    <input type="text" id="message" placeholder="Enter Message" required>
+    <button type="submit">Submit</button>
 </form>
 
+<form id="chatFormName">
+    <input type="text" id="message_name" placeholder="Enter Receiving Name:" required>
+    <input type="text" id="message_body" placeholder="Enter Message" required>
+    <button type="submit">Submit</button>
+</form>
+
+<form id="userForm">
+    <input type="text" id="name" placeholder="Enter Name:" required>
+    <button type="submit">Submit</button>
+</form>
+
+
+<script>
+    document.getElementById('chatForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+        
+        const userId = document.getElementById('id').value;  // Get the ID from the input field
+        const message = document.getElementById('message').value;
+
+        const data = {
+            chat: message,  // Use 'chat' to match your Go backend's Chat struct
+            user: userId
+        };
+
+        fetch(`/user/${userId}/sendchat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)  // Convert data to JSON
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);  // Handle success
+            alert('Message sent successfully!');  // Notify the user
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+
+    document.getElementById('chatFormName').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+        
+        const userName = document.getElementById('message_name').value;  // Get the ID from the input field
+        const message = document.getElementById('message_body').value;
+
+        const data = {
+            chat: message,  
+            user: userName
+        };
+
+        fetch(`/user/send/${userName}/chat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)  // Convert data to JSON
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);  // Handle success
+            alert('Message sent successfully!');  // Notify the user
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+
+
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent the default form submission
+        
+        const userName = document.getElementById('name').value;  // Get the ID from the input field
+
+        const data = {
+            name: userName,  // Use 'chat' to match your Go backend's Chat struct
+        };
+
+        fetch(`/user/new/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)  // Convert data to JSON
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);  // Handle success
+            alert('Message sent successfully!');  // Notify the user
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+
+</script>
 
