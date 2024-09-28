@@ -110,6 +110,7 @@ func usage(w http.ResponseWriter, r *http.Request) {
 			"POST /user/{id}/chat - Add a chat to user",
 			"PUT /user/{id}/chat/{chatIndex} - Update a chat in user's chat log",
 			"GET /user/{id}/chat - Get user chat log",
+      "GET /user/{id}/chats - Get All Users Chats",
 		},
 		Examples: []string{
 			`curl -X POST -d '{"name": "NewUser"}' http://localhost:5000/user/adduser`,
@@ -164,6 +165,20 @@ func updateChat(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "User not found", http.StatusNotFound)
 }
 
+func getChatById(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+  params := mux.Vars(r)
+  userID := params["id"]
+  for i, user := range users {
+    if user.ID == userID {
+      res := users[i].ChatLog 
+      json.NewEncoder(w).Encode(res)
+      return
+    }
+  } 
+  http.Error(w, "User not found", http.StatusNotFound)
+}
+
 func main() {
 	// Initialize with some users
 	users = append(users, User{
@@ -179,14 +194,24 @@ func main() {
 	router := mux.NewRouter()
 
 	// Define routes
+	router.HandleFunc("/", usage).Methods("GET")
 	router.HandleFunc("/usage/", usage).Methods("GET")
 	router.HandleFunc("/user/", getAllUsers).Methods("GET")
+	router.HandleFunc("/user", getAllUsers).Methods("GET")
 	router.HandleFunc("/user/{id}", getUserByID).Methods("GET")
+	router.HandleFunc("/user/{id}/", getUserByID).Methods("GET")
 	router.HandleFunc("/user/name/{name}", getUserByName).Methods("GET")
+	router.HandleFunc("/user/name/{name}/", getUserByName).Methods("GET")
+	router.HandleFunc("/user/{id}/chats", getChatById).Methods("GET")
+	router.HandleFunc("/user/{id}/chats/", getChatById).Methods("GET")
 	router.HandleFunc("/user/adduser", addUser).Methods("POST")
+	router.HandleFunc("/user/adduser/", addUser).Methods("POST")
 	router.HandleFunc("/user/{id}", updateUser).Methods("PUT")
+	router.HandleFunc("/user/{id}/", updateUser).Methods("PUT")
 	router.HandleFunc("/user/{id}/chat", addChat).Methods("POST")
+	router.HandleFunc("/user/{id}/chat/", addChat).Methods("POST")
 	router.HandleFunc("/user/{id}/chat/{chatIndex}", updateChat).Methods("PUT")
+	router.HandleFunc("/user/{id}/chat/{chatIndex}/", updateChat).Methods("PUT")
 
 	// Start server on port 5000
 	log.Fatal(http.ListenAndServe(":4343", router))
