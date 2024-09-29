@@ -7,104 +7,147 @@
 <html>
 <style>
   body {
-    color: white;
-    font-family: 'Poppins', sans-serif; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Full height of the viewport */
-    font-size: 1.5rem;
-    background-color: #222222; /* Background color */
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the forms */
-    width: 100%; /* Full width to ensure centering */
-}
-
-.styled-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center items in the form */
-    margin: 20px 0; /* Add spacing between forms */
-    width: 100%; /* Set width for forms */
-}
-
-.input {
-    margin: 30px;
-    background: none;
-    border: none;
-    outline: none;
-    width: 330px; /* Maximum width for the input fields */
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 9999px;
-    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-    color: #fff;
-}
-
-.button {
-    margin-top: 10px;
-    width: 400px; /* Fixed width for the button */
-    height: 40px; /* Fixed height for the button */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center content in the button */
-    padding: 0px 15px;
-    background-color: rgb(66, 66, 66);
-    border-radius: 10px;
-    color: white;
-    border: none;
-    position: relative;
-    cursor: pointer;
-    transition-duration: .2s;
-}
-
-.button:hover {
-    background-color: rgb(77, 77, 77);
-    transition-duration: .2s;
-}
-
-.arrow {
-    width: 30px;
-    height: 100%;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.button:active {
-    transform: translate(1px, 1px);
-    transition-duration: .2s;
-}
-
-/* Optional: Add responsiveness */
-@media (max-width: 600px) {
-    .input {
-        width: 90%; /* Adjust width on smaller screens */
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-size: 1.5rem;
+      background-color: #222222;
     }
-}
 
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Arial";
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo {
+      margin-left: 20px;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+    }
+
+    .form-container {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .input {
+      margin-right: 10px;
+      background: none;
+      border: none;
+      outline: none;
+      width: 300px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 9999px;
+      box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+      height: 40px;
+      color: white;
+      transition: width 0.3s ease;
+    }
+
+    .button {
+      width: 240px;
+      height: 40px;
+      align-items: center;
+      padding: 0px 15px;
+      background-color: rgb(66, 66, 66);
+      border-radius: 10px;
+      color: white;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      transition: width 0.3s ease;
+    }
+
+    .form-container:focus-within .input {
+      width: 430px;
+    }
+
+    .form-container:focus-within .button {
+      width: 110px;
+    }
+      .form-container:hover .input {
+      width: 430px;
+    }
+
+    .form-container:hover .button {
+      width: 110px;
+    }
+
+    .button-open {
+      height: 40px;
+      align-items: center;
+      padding: 10px 15px;
+      margin-right: 10px;
+      background-color: rgb(66, 66, 66);
+      border-radius: 10px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 550px;
+    }
+
+    .button-open:hover .arrow {
+      transform: rotate(180deg);
+    }
+
+    .button-open:hover {
+      background-color: rgb(77, 77, 77);
+      transform: translate(1px, 1px);
+    }
+
+    .arrow {
+      transition: transform 0.3s ease;
+      float: left;
+      margin-bottom: 5px;
+      width: 30px;
+      font-size: 18px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .name_msg {
+      color: red;
+      font-size: 1.1rem;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
   <body>
+    <h1 class="header">Meow Chat<img src="../static/logo.png" class="logo"></img></h1>
     <div>
-      <form id="userForm">
+      <form id="userForm" class="form-container">
         <input class="input" type="text" id="name" placeholder="Username" required>
-        <button type="submit" class="button">
+        <button type="submit" id="sub_btn" class="button">
           Submit
         </button>
       </form>
 
       <form id="userChatsOpen">
-        <button type="submit" class="button">
+        <button type="submit" class="button-open">
           Open Profile
           <div class="arrow">›</div>
         </button>
       </form>
+
+      <div class="name_msg">
+        {% if name_msg %}
+        {{ name_msg }}
+        {% endif %}
+      </div>
 
     </div>
   </body

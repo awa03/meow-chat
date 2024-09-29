@@ -21,7 +21,7 @@ def view_all_user_chats():
         # Render the chat logs in the HTML template
         return render_template('users_chats.html', chats=chats)
     except requests.RequestException as e:
-        return jsonify({"error": "Failed to fetch user chats", "details": str(e)}), 500      
+        return render_template('home.html', name_msg = "Please Enter Name")
 
 @app.route('/user/new/', methods=['POST'])
 def add_user():
