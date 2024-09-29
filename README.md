@@ -1,5 +1,6 @@
 # Meow Chat
-A straightforward chat interface utilizing a RESTful API, developed in Go and integrated with a Python Flask application.
+A straightforward chat interface utilizing a RESTful API, developed in Go and integrated with a Python Flask application. Watch the
+[Video Showcase](https://github.com/user-attachments/assets/5254ab66-ea61-4472-8415-b679443fa042) to get a better idea of how to use the application.
 
 ### Built With
 - Go (Backend, RESTFUL API)
