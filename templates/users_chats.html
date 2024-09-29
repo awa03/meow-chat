@@ -69,12 +69,12 @@
 
 <body>
     <div class="container">
-        <h1>User Chats</h1>
+        <h1>Chat for User ID: {{ user_id }}</h1>
         <div id="messages">
             {% if chats %}
                 {% for chat in chats %}
                     <div class="chat-box">
-                        <div class="chat-user">User: {{ chat.user }}</div>
+                        <div class="chat-user">{{chat.name}}: {{ chat.user }}</div>
                         <div class="chat-message">{{ chat.chat }}</div>
                     </div>
                 {% endfor %}
@@ -124,6 +124,60 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
         });
+        function addChatUserListeners() {
+          // Get all elements with the class 'chat-user'
+          const chatUsers = document.querySelectorAll('.chat-user');
+
+          // Loop through each chat user element
+          chatUsers.forEach(function(chatUserElement) {
+            // Add a click event listener to the element
+            chatUserElement.addEventListener('click', function() {
+              // Get the text (chat name) from the clicked element
+              const chatName = this.textContent.split(":")[0]; // Extract the name before the colon
+              document.getElementById('message_name').value = chatName;
+              
+            });
+          });
+        }
+        const pollingInterval = 5000; // Poll every 5 seconds
+
+        // Function to fetch chats and update the chat window
+        function fetchChats() {
+          fetch(`/user/chats{}`)
+                .then(response => response.json())
+                .then(chats => {
+                    const messagesDiv = document.getElementById('messages');
+                    messagesDiv.innerHTML = ''; // Clear the current chat messages
+                    
+                    // Loop through each chat and add it to the messages div
+                    chats.forEach(chat => {
+                        const chatBox = document.createElement('div');
+                        chatBox.className = 'chat-box';
+                        chatBox.innerHTML = `
+                            <div class="chat-user">${chat.name}: ${chat.user}</div>
+                            <div class="chat-message">${chat.chat}</div>
+                        `;
+                        messagesDiv.appendChild(chatBox);
+                    });
+
+                    // Re-apply event listeners to the new chat-user elements
+                    addChatUserListeners();
+                })
+                .catch(error => {
+                    console.error('Error fetching chats:', error);
+                });
+        }
+
+        // Poll for new messages periodically
+        function startPolling() {
+            fetchChats(); // Fetch the chats immediately when the page loads
+            setInterval(fetchChats, pollingInterval); // Poll every few seconds
+        }
+
+        // Add event listeners to chat users once the page loads
+        window.onload = function() {
+          addChatUserListeners();
+        };
     </script>
 </body>
 </html>

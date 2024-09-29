@@ -16,6 +16,7 @@ import (
 type Chat struct {
 	Chat   string `json:"chat"`
 	UserID string `json:"user"`
+  UserName string `json:"name"`
 }
 
 // User represents a user with a name, ID, and chat log.
@@ -164,6 +165,7 @@ func addChat(w http.ResponseWriter, r *http.Request) {
     for i, user := range users {
         if user.ID == params["id"] {
             newChat.UserID = user.ID
+            newChat.UserName = user.Name;
             users[i].ChatLog = append(users[i].ChatLog, newChat)
             json.NewEncoder(w).Encode(newChat)
             return
@@ -189,6 +191,7 @@ func addChatByName(w http.ResponseWriter, r *http.Request) {
     for i, user := range users {
         if user.Name == params["name"] || user.ID == params["name"] {
             newChat.UserID = user.ID
+            newChat.UserName = user.Name;
             users[i].ChatLog = append(users[i].ChatLog, newChat)
             json.NewEncoder(w).Encode(newChat)
             return
