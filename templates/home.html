@@ -1,93 +1,188 @@
-<h1>Enter Your Name</h1>
-<form action="/user/name/" method="POST">
-    <input type="text" name="name" placeholder="Enter your name" required>
-    <button type="submit">Submit</button>
-</form>
+<!-- <form id="chatFormName"> -->
+<!--     <input type="text" id="message_name" placeholder="Enter Receiving Name:" required> -->
+<!--     <input type="text" id="message_body" placeholder="Enter Message" required> -->
+<!--     <button type="submit">Submit</button> -->
+<!-- </form> -->
 
-<form id="chatForm">
-    <input type="text" id="id" placeholder="Enter Receiving ID:" required>
-    <input type="text" id="message" placeholder="Enter Message" required>
-    <button type="submit">Submit</button>
-</form>
+<html>
+<style>
+  body {
+    color: white;
+    font-family: 'Poppins', sans-serif; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full height of the viewport */
+    font-size: 1.5rem;
+    background-color: #222222; /* Background color */
+}
 
-<form id="chatFormName">
-    <input type="text" id="message_name" placeholder="Enter Receiving Name:" required>
-    <input type="text" id="message_body" placeholder="Enter Message" required>
-    <button type="submit">Submit</button>
-</form>
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the forms */
+    width: 100%; /* Full width to ensure centering */
+}
 
-<form id="userForm">
-    <input type="text" id="name" placeholder="Enter Name:" required>
-    <button type="submit">Submit</button>
-</form>
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items in the form */
+    margin: 20px 0; /* Add spacing between forms */
+    width: 100%; /* Set width for forms */
+}
 
+.input {
+    margin: 30px;
+    background: none;
+    border: none;
+    outline: none;
+    width: 330px; /* Maximum width for the input fields */
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 9999px;
+    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+    color: #fff;
+}
+
+.button {
+    margin-top: 10px;
+    width: 400px; /* Fixed width for the button */
+    height: 40px; /* Fixed height for the button */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content in the button */
+    padding: 0px 15px;
+    background-color: rgb(66, 66, 66);
+    border-radius: 10px;
+    color: white;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition-duration: .2s;
+}
+
+.button:hover {
+    background-color: rgb(77, 77, 77);
+    transition-duration: .2s;
+}
+
+.arrow {
+    width: 30px;
+    height: 100%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button:active {
+    transform: translate(1px, 1px);
+    transition-duration: .2s;
+}
+
+/* Optional: Add responsiveness */
+@media (max-width: 600px) {
+    .input {
+        width: 90%; /* Adjust width on smaller screens */
+    }
+}
+
+  </style>
+  <body>
+    <div>
+      <form id="userForm">
+        <input class="input" type="text" id="name" placeholder="Username" required>
+        <button type="submit" class="button">
+          Submit
+        </button>
+      </form>
+
+      <form id="userChatsOpen">
+        <button type="submit" class="button">
+          Open Profile
+          <div class="arrow">›</div>
+        </button>
+      </form>
+
+    </div>
+  </body
+</html>
 
 <script>
-    document.getElementById('chatForm').addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent the default form submission
-        
-        const userId = document.getElementById('id').value;  // Get the ID from the input field
-        const message = document.getElementById('message').value;
+    // document.getElementById('chatForm').addEventListener('submit', function(event) {
+    //     event.preventDefault();  // Prevent the default form submission
+    //     
+    //     const userId = document.getElementById('id').value;  // Get the ID from the input field
+    //     const message = document.getElementById('message').value;
 
-        const data = {
-            chat: message,  // Use 'chat' to match your Go backend's Chat struct
-            user: userId
-        };
+    //     const data = {
+    //         chat: message,  // Use 'chat' to match your Go backend's Chat struct
+    //         user: userId
+    //     };
 
-        fetch(`/user/${userId}/sendchat`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)  // Convert data to JSON
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);  // Handle success
-            alert('Message sent successfully!');  // Notify the user
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+    //     fetch(`/user/${userId}/sendchat`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data)  // Convert data to JSON
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log(data);  // Handle success
+    //         alert('Message sent successfully!');  // Notify the user
+    //     })
+    //     .catch(error => {
+    //         console.error('There was a problem with the fetch operation:', error);
+    //     });
+    // });
+
+    document.getElementById('userChatsOpen').addEventListener('submit', function(event) {
+      event.preventDefault();  
+      window.location.href = '/user/chats';
     });
 
-    document.getElementById('chatFormName').addEventListener('submit', function(event) {
-        event.preventDefault();  // Prevent the default form submission
-        
-        const userName = document.getElementById('message_name').value;  // Get the ID from the input field
-        const message = document.getElementById('message_body').value;
 
-        const data = {
-            chat: message,  
-            user: userName
-        };
 
-        fetch(`/user/send/${userName}/chat`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)  // Convert data to JSON
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);  // Handle success
-            alert('Message sent successfully!');  // Notify the user
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-    });
+    // document.getElementById('chatFormName').addEventListener('submit', function(event) {
+    //     event.preventDefault();  // Prevent the default form submission
+    //     
+    //     const userName = document.getElementById('message_name').value;  // Get the ID from the input field
+    //     const message = document.getElementById('message_body').value;
+
+    //     const data = {
+    //         chat: message,  
+    //         user: userName
+    //     };
+
+    //     fetch(`/user/send/${userName}/chat`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data)  // Convert data to JSON
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log(data);  // Handle success
+    //         alert('Message sent successfully!');  // Notify the user
+    //     })
+    //     .catch(error => {
+    //         console.error('There was a problem with the fetch operation:', error);
+    //     });
+    // });
 
 
     document.getElementById('userForm').addEventListener('submit', function(event) {
@@ -114,7 +209,6 @@
         })
         .then(data => {
             console.log(data);  // Handle success
-            alert('Message sent successfully!');  // Notify the user
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);

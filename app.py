@@ -8,6 +8,21 @@ app = Flask(__name__)
 
 API_URL = "http://localhost:4343/user/"  # Adjust as needed
 
+@app.route('/user/chats')
+def view_all_user_chats():
+    userID = get_computer_hash()  # Get user ID based on the current machine
+    try: 
+        # Fetch chat logs from Go backend
+        response = requests.get(f"http://localhost:4343/user/{userID}/chats")
+        response.raise_for_status()  # Raise an error if the request failed
+        chats = response.json()  # Parse the JSON response
+        print(chats)
+        
+        # Render the chat logs in the HTML template
+        return render_template('users_chats.html', chats=chats)
+    except requests.RequestException as e:
+        return jsonify({"error": "Failed to fetch user chats", "details": str(e)}), 500      
+
 @app.route('/user/new/', methods=['POST'])
 def add_user():
     try:
@@ -139,5 +154,5 @@ def get_computer_hash():
 
 # Start the Flask server
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
 

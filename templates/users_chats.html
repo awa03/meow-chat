@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Chats</title>
+    <style>
+        body {
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #222222;
+        }
+        .container {
+            flex: 1;
+            width: 80%;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Align items to the bottom */
+        }
+        .chat-box {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            color: black;
+            overflow-y: auto; /* Make chat box scrollable */
+            max-height: 300px; /* Limit height of chat messages */
+        }
+        #messages {
+            overflow-y: auto; /* Enable scrolling for messages */
+            flex: 1; /* Allow the messages area to take up available space */
+        }
+        .chat-user {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center; /* Center inputs */
+            margin-top: 10px;
+            padding: 10px;
+        }
+        .form__field {
+            width: 45%; /* Set width of input fields */
+            padding: 10px;
+            border: 1px green solid;
+            margin: 5px;
+            border-radius: 5px; /* Rounded corners for inputs */
+        }
+        .button-33 {
+            background-color: #c2fbd7;
+            border-radius: 100px;
+            color: green;
+            cursor: pointer;
+            padding: 7px 20px;
+            border: none;
+            transition: all 250ms;
+        }
+        .button-33:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Chats</h1>
+        <div id="messages">
+            {% if chats %}
+                {% for chat in chats %}
+                    <div class="chat-box">
+                        <div class="chat-user">User: {{ chat.user }}</div>
+                        <div class="chat-message">{{ chat.chat }}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No chats available.</p>
+            {% endif %}
+        </div>
+        <div class="form-container">
+            <form id="chatFormName" style="display: flex; width: 100%; justify-content: center;">
+                <input type="text" class="form__field" name="name" id="message_name" placeholder="Your Name" required>
+                <input type="text" class="form__field" name="message" id="message_body" placeholder="Your Message" required>
+                <button type="submit" id="submitname" class="button-33">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('chatFormName').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const userName = document.getElementById('message_name').value; // Get the ID from the input field
+            const message = document.getElementById('message_body').value;
+
+            const data = {
+                chat: message,
+                user: userName
+            };
+
+            fetch(`/user/send/${userName}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data) // Convert data to JSON
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data); // Handle success
+                alert('Message sent successfully!'); // Notify the user
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+

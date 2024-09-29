@@ -82,9 +82,9 @@ func addUser(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    for _, user := range users {
-      if user.ID == newUser.ID || user.Name == newUser.Name {
-        http.Error(w, "Account Already Exists using this hash", http.StatusBadRequest)
+    for i, user := range users {
+      if user.ID == newUser.ID{
+        users[i].Name = newUser.Name; 
         return
       }
     }
@@ -187,13 +187,17 @@ func addChatByName(w http.ResponseWriter, r *http.Request) {
     }
 
     for i, user := range users {
-        if user.Name == params["name"] {
+        if user.Name == params["name"] || user.ID == params["name"] {
             newChat.UserID = user.ID
             users[i].ChatLog = append(users[i].ChatLog, newChat)
             json.NewEncoder(w).Encode(newChat)
             return
         }
     }
+
+
+
+    
 
     http.Error(w, "User not found", http.StatusNotFound)
 }
@@ -231,6 +235,7 @@ func updateChat(w http.ResponseWriter, r *http.Request) {
 
 // getChatById retrieves all chats for a given user.
 func getChatById(w http.ResponseWriter, r *http.Request) {
+  print("Testing")
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	for _, user := range users {
@@ -240,6 +245,18 @@ func getChatById(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	http.Error(w, "User not found", http.StatusNotFound)
+}
+
+func checkUser(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    params := mux.Vars(r)
+    for _, item := range users {
+        if item.Name == params["name"] {
+            w.WriteHeader(http.StatusOK) // User exists
+            return
+        }
+    }
+    w.WriteHeader(http.StatusNotFound) // User does not exist
 }
 
 // Entry point
@@ -268,6 +285,7 @@ func main() {
 	router.HandleFunc("/user/name/{name}/chat", addChatByName).Methods("POST")
 	router.HandleFunc("/user/{id}/chat/{chatIndex}", updateChat).Methods("PUT")
 	router.HandleFunc("/user/{id}/chats", getChatById).Methods("GET")
+  router.HandleFunc("/user/check/{name}", checkUser).Methods("GET")
 
 	// Start the server
 	log.Fatal(http.ListenAndServe(":4343", router))
