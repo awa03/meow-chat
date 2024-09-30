@@ -5,7 +5,7 @@ A straightforward chat interface utilizing a RESTful API, developed in Go and in
 ### Built With
 - Go (Backend, RESTFUL API)
 - Python (Frontend, Flask)
-- PostgreSQL (Database)
+- Firebase (Database, Coming Soon)
 
 ### Gallery
 ![2024-09-28 20 58 04 localhost a5050c300055](https://github.com/user-attachments/assets/84c752f9-4acd-417e-a09c-92c89605fedc)
