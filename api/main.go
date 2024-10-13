@@ -197,10 +197,6 @@ func addChatByName(w http.ResponseWriter, r *http.Request) {
         }
     }
 
-
-
-    
-
     http.Error(w, "User not found", http.StatusNotFound)
 }
 
@@ -263,6 +259,8 @@ func checkUser(w http.ResponseWriter, r *http.Request) {
 
 // Entry point
 func main() {
+
+
 	// Initialize with some users
 	users = append(users, User{
 		Name: "awa03",
