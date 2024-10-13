@@ -1,0 +1,12 @@
+/home/aiden-allen/meow-chat/cli/target/debug/deps/libmac-ea946d45d641ce78.rmeta: /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/lib.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/test.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/mem.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/format.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/syntax_ext.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/matches.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/inspect.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/cfg.rs
+
+/home/aiden-allen/meow-chat/cli/target/debug/deps/mac-ea946d45d641ce78.d: /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/lib.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/test.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/mem.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/format.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/syntax_ext.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/matches.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/inspect.rs /home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/cfg.rs
+
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/lib.rs:
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/test.rs:
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/mem.rs:
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/format.rs:
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/syntax_ext.rs:
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/matches.rs:
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/inspect.rs:
+/home/aiden-allen/.cargo/registry/src/index.crates.io-6f17d22bba15001f/mac-0.1.1/src/cfg.rs:
